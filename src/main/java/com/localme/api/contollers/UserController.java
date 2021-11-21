@@ -137,5 +137,11 @@ public class UserController {
 	 Iterable<Category> findAllCategories() {
 	  return categoryService.findAllCategories();
 	 }
+	@GetMapping("/")
+	String hello()
+	{
+	return "Hello";
+	}
+
 
 }
