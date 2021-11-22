@@ -138,6 +138,15 @@ public class UserController {
 	 Iterable<Category> findAllCategories() {
 	  return categoryService.findAllCategories();
 	 }
+<<<<<<< HEAD
 	
+=======
+	@GetMapping("/")
+	String hello()
+	{
+	return "Hello";
+	}
+
+>>>>>>> 1567449cf291cb0630dcd4c82e00651241e8cccb
 
 }
