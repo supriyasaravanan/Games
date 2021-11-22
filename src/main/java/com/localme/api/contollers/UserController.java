@@ -27,6 +27,7 @@ import com.localme.api.vo.UserLoginVO;
 @RestController
 public class UserController {
 
+
 	@Autowired
 	UserRepo userRepo;
 	
@@ -137,5 +138,6 @@ public class UserController {
 	 Iterable<Category> findAllCategories() {
 	  return categoryService.findAllCategories();
 	 }
+	
 
 }
