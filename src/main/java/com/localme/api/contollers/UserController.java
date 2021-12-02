@@ -130,6 +130,24 @@ public class UserController {
 		return result;
 	}
 	
+	@PostMapping("/addCat")
+	public Map<String, Object> addCat(@RequestBody Category gamevo) {
+		
+		Map<String, Object> result = new HashMap<String,Object>();
+		Category gameDetail = catRepo.findByname(gamevo.getName());
+	if(gameDetail == null )
+		{
+		Category restultvo = catRepo.save(gamevo);
+		result.put("STATUS", "SUCCESS");
+		result.put("DATA", restultvo);
+		}
+	else {
+		result.put("STATUS","FAILURE");
+		
+	}
+		return result;
+	}
+	
 	@GetMapping("/findGameForCategory/{name}")
 	 List<GameDetail> findGamesForCategory(@PathVariable String name) {
 		logger.trace("Entering method");
