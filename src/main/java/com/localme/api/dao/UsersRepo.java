@@ -4,12 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.localme.api.vo.UserDetailsVO;
 
+import com.localme.api.vo.Users;
 
 @RepositoryRestResource
-public interface UserRepo extends CrudRepository<UserDetailsVO, Integer> {
+public interface UsersRepo extends CrudRepository<Users, Integer> {
 	
-	public UserDetailsVO findByuid(String username);
-	
+	Users findByUsername(String username);
 }

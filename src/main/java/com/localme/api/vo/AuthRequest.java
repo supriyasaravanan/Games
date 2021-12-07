@@ -1,11 +1,9 @@
 package com.localme.api.vo;
 
-public class UserLoginVO {
+public class AuthRequest {
 
-	String username;
-	String password;
-	
-	
+	private String username;
+    private String password;
 	public String getUsername() {
 		return username;
 	}
@@ -15,10 +13,15 @@ public class UserLoginVO {
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
+	public AuthRequest(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+    
 }
