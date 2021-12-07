@@ -70,8 +70,8 @@ public class UserController {
 		logger.trace("Entering method add Game");
 		if(gamedetail.getName().isEmpty() || gamedetail.getName().length() == 0 )
 		{
-			ErrorDetails errorDetails = new ErrorDetails(400,"Enter the valid username");
-		    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid username");
+		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 		
 		try 
@@ -81,14 +81,14 @@ public class UserController {
 	    }
 		catch (Exception e) 
 		{
-			ErrorDetails errorDetails = new ErrorDetails(400,"Already Present");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+			ErrorDetails errorDetails = new ErrorDetails(404,"Already Present");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 		
 	}
 	
 	
-	@PostMapping("/getGame")
+	@GetMapping("/getGame")
 	public ResponseEntity<?>  getGame(@RequestBody GameList gamedetails) {
 		logger.trace("Entering method get Game");
 		try 
@@ -97,35 +97,59 @@ public class UserController {
 			return new ResponseEntity<GameDetail>(gameFind, HttpStatus.OK);
 		
 		}catch (Exception e) {
-			ErrorDetails errorDetails = new ErrorDetails(400,"Not present");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+			ErrorDetails errorDetails = new ErrorDetails(404,"Not present");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}	
 	}	
 	
-	
 	@PostMapping("/addCat")
-	public Map<String, Object> addCat(@RequestBody Category gamevo) {
-		
-		Map<String, Object> result = new HashMap<String,Object>();
-		Category gameDetail = catRepo.findByname(gamevo.getName());
-	if(gameDetail == null )
+	public ResponseEntity<?> addCat(@RequestBody Category gamedetail){
+		logger.trace("Entering method add cat");
+		if(gamedetail.getName().isEmpty() || gamedetail.getName().length() == 0 )
 		{
-		Category restultvo = catRepo.save(gamevo);
-		result.put("STATUS", "SUCCESS");
-		result.put("DATA", restultvo);
+			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid username");
+		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
-	else {
-		result.put("STATUS","FAILURE");
 		
-	}
-		return result;
+		try 
+		{
+			Category employeeSaved = gameService.addCat(gamedetail);
+			return new ResponseEntity<Category>(employeeSaved, HttpStatus.CREATED);
+	    }
+		catch (Exception e) 
+		{
+			ErrorDetails errorDetails = new ErrorDetails(404,"Already Present");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+		}
+		
 	}
 	
+
 	@GetMapping("/findGameForCategory/{name}")
+	public ResponseEntity<?> findGamesForCategory(@PathVariable String name) {
+		logger.trace("Entering method");
+		if(name.isEmpty() ||name.length() == 0  )
+		{
+			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid username");
+		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+		}
+		try
+		{
+			  List< GameDetail> gameDet= gameService.findGamesForCategory(name);
+			   return new ResponseEntity<List<GameDetail>>(gameDet, HttpStatus.OK);
+		}
+			   catch (Exception e) 
+				{
+					ErrorDetails errorDetails = new ErrorDetails(404,"Not found");
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+				}
+	 }
+	
+	/*@GetMapping("/findGameForCategory/{name}")
 	 List<GameDetail> findGamesForCategory(@PathVariable String name) {
 		logger.trace("Entering method");
 			   return gameService.findGamesForCategory(name);
-	 } 
+	 } */
 	
 	@GetMapping("/findAllCategories")
 	 Iterable<Category> findAllCategories() {

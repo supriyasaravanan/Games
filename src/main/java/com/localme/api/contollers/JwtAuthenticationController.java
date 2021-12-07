@@ -57,8 +57,8 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(userDetailsService.save(user));
 		}
 		catch (Exception e) {
-			ErrorDetails errorDetails = new ErrorDetails(400,"Already present");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+			ErrorDetails errorDetails = new ErrorDetails(404,"Already present");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 	}
 
@@ -80,8 +80,8 @@ public class JwtAuthenticationController {
 			Users gameFind=userService.getUser(user);
 			return new ResponseEntity<Users>(gameFind, HttpStatus.OK);
 		}catch (Exception e) {
-			ErrorDetails errorDetails = new ErrorDetails(400,"Not present");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+			ErrorDetails errorDetails = new ErrorDetails(404,"Not present");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 			
 	}

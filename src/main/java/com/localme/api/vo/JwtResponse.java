@@ -8,16 +8,14 @@ import lombok.NoArgsConstructor;
 
 public class JwtResponse implements Serializable {
 	private static final long serialVersionUID = -8091879091924046844L;
-	private String jwttoken;
-
-	public String getJwtToken() {
-		return jwttoken;
+	private String access_token;
+	public String getAccess_token() {
+		return access_token;
 	}
-
-	public JwtResponse(String jwttoken) {
+	public JwtResponse(String access_token) {
 		super();
-		this.jwttoken = jwttoken;
+		this.access_token = access_token;
 	}
-	
-	
+
+
 }

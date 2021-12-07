@@ -25,10 +25,20 @@ public class GameImpl implements GameService{
 	
 	 @Override
 	 public List<GameDetail> findGamesForCategory(String name) {
+		 try {
+			 GameDetail gameDet=gameRepo.findByname(name);
+			 if(gameDet!=null)
+				{
+					throw new BusinessException("400","Already Exisit");
+				}
 		 System.out.println("name"+name);
 	   Category category = catRepo.findByName(name).orElse(null);
 	   return category.getGames();
 	   }
+		 catch (Exception e) {
+				throw new BusinessException("603","Something went wrong in Service layer while saving the employee");
+			} 
+	 }
 	 
 	 @Override
 		public GameDetail addGame(GameDetail gamedetail) {
@@ -70,6 +80,26 @@ public class GameImpl implements GameService{
 			}
 			
 	 }		
+	 @Override
+		public Category addCat(Category gamedetail) {
+		 
+			try {
+				Category gameDet=catRepo.findByname(gamedetail.getName());
+				
+				if(gameDet!=null)
+				{
+					throw new BusinessException("404","Already Exisit");
+				}
+				
+				Category savedEmployee = catRepo.save(gamedetail);
+				return savedEmployee;
+			}
+			catch (Exception e) {
+				throw new BusinessException("603","Something went wrong in Service layer while saving the employee");
+			}
+			
+
+	 }
 			
 	 	
 	 	 
