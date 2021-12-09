@@ -68,12 +68,13 @@ public class UserController {
 	@PostMapping("/addGame")
 	public ResponseEntity<?> addGame(@RequestBody GameDetail gamedetail){
 		logger.trace("Entering method add Game");
-		if(gamedetail.getName().isEmpty() || gamedetail.getName().length() == 0 )
-		{
-			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid username");
-		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
-		}
-		
+		GameDetail gameDet=gameRepo.findByname(gamedetail.getName());
+		 if(gameDet!=null)
+			{
+			 ErrorDetails errorDetails = new ErrorDetails(404,"Name is already present");
+			    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+			}
+			
 		try 
 		{
 			GameDetail employeeSaved = gameService.addGame(gamedetail);
@@ -81,7 +82,7 @@ public class UserController {
 	    }
 		catch (Exception e) 
 		{
-			ErrorDetails errorDetails = new ErrorDetails(404,"Already Present");
+			ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid value");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 		

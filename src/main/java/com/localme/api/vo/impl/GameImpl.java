@@ -44,11 +44,10 @@ public class GameImpl implements GameService{
 		public GameDetail addGame(GameDetail gamedetail) {
 		 
 			try {
-				GameDetail gameDet=gameRepo.findByname(gamedetail.getName());
 				
-				if(gameDet!=null)
-				{
-					throw new BusinessException("400","Already Exisit");
+				if(gamedetail.getName().isEmpty() || gamedetail.getName().length() == 0 )
+				{throw new BusinessException("404","Enter valid value");
+							
 				}
 				
 				GameDetail savedEmployee = gameRepo.save(gamedetail);
