@@ -126,7 +126,7 @@ public class UserController {
 		logger.trace("Entering method add cat");
 		if(gamedetail.getName().isEmpty() || gamedetail.getName().length() == 0 )
 		{
-			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid username");
+			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid category");
 		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 		
