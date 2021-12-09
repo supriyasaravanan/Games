@@ -68,7 +68,7 @@ public class GameImpl implements GameService{
 				
 				if(gameDet==null)
 				{
-					throw new BusinessException("405","Not Present");
+					throw new BusinessException("404","Not Present");
 				}
 				GameDetail savedEmployees=gameRepo.findByname(gamedetails.getName());
 				return savedEmployees;

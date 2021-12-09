@@ -8,4 +8,5 @@ import com.localme.api.vo.Category;
 @Service
 public interface CategoryService {
 	Iterable<Category> findAllCategories();		
+	public Category checkCat(Category catDetail);
 }

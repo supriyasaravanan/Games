@@ -65,33 +65,51 @@ public class UserController {
 	 Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	
-	@PostMapping("/addGame")
-	public ResponseEntity<?> addGame(@RequestBody GameDetail gamedetail){
-		logger.trace("Entering method add Game");
-		GameDetail gameDet=gameRepo.findByname(gamedetail.getName());
-		 if(gameDet!=null)
+	 @PostMapping("/addGame")
+		public ResponseEntity<?> addGame(@RequestBody GameDetail gamedetail){
+			logger.trace("Entering method add Game");
+			GameDetail gameDet=gameRepo.findByname(gamedetail.getName());
+			 if(gameDet!=null)
+				{
+				 ErrorDetails errorDetails = new ErrorDetails(404,"Name is already present");
+				    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+				}
+			 else
+			 {
+				 if(gamedetail.getName().isEmpty() || gamedetail.getName().length() == 0 )
+					{ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid name");
+				    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+					} 
+			 }
+				
+			try 
 			{
-			 ErrorDetails errorDetails = new ErrorDetails(404,"Name is already present");
-			    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+				GameDetail employeeSaved = gameService.addGame(gamedetail);
+				return new ResponseEntity<GameDetail>(employeeSaved, HttpStatus.CREATED);
+		    }
+			catch(BusinessException e)
+			{
+				ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid category");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+			}
+			catch (Exception e) 
+			{
+				ErrorDetails errorDetails = new ErrorDetails(404,"Enter a category value");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 			}
 			
-		try 
-		{
-			GameDetail employeeSaved = gameService.addGame(gamedetail);
-			return new ResponseEntity<GameDetail>(employeeSaved, HttpStatus.CREATED);
-	    }
-		catch (Exception e) 
-		{
-			ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid value");
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
 		}
 		
-	}
 	
 	
 	@GetMapping("/getGame")
 	public ResponseEntity<?>  getGame(@RequestBody GameList gamedetails) {
 		logger.trace("Entering method get Game");
+		if(gamedetails.getName().isEmpty() || gamedetails.getName().length() == 0 )
+		{
+			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the game name");
+		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+		}
 		try 
 		{
 			GameDetail gameFind=gameService.getGame(gamedetails);

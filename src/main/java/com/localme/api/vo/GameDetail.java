@@ -21,7 +21,7 @@ public class GameDetail {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 	
-	@NotNull(message="Enter the name")
+	@Column(nullable = false)
 	String name;
 	String description;
 	String url;

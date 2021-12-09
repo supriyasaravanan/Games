@@ -11,5 +11,5 @@ import com.localme.api.vo.Category;
 public interface CategoryRepo extends CrudRepository<Category, String>{
 	public Category findByname(String name);
 	Optional<Category> findByName(String name);
-	
+	public Category findById(Long category);
 }
