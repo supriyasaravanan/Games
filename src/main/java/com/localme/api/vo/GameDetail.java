@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="game_lists")
+@Table(name="games")
 public class GameDetail {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
