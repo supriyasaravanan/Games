@@ -21,14 +21,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+	int id;
 	String name;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<GameDetail> games;
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {

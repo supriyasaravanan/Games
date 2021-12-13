@@ -99,8 +99,11 @@ public class GameImpl implements GameService{
 			
 
 	 }
-			
-	 	
-	 	 
+	 @Override
+	 public Iterable<GameDetail> findAllGames() 
+	 {
+	   return gameRepo.findAll();
+	 }
+		
 }
 

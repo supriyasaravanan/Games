@@ -32,6 +32,7 @@ import com.localme.api.vo.AuthRequest;
 import com.localme.api.vo.Category;
 import com.localme.api.vo.GameDetail;
 import com.localme.api.vo.GameList;
+import com.localme.api.vo.GameRepository;
 import com.localme.api.vo.JwtRequest;
 import com.localme.api.vo.JwtResponse;
 import com.localme.api.vo.userimpl.CustomUserDetailsService;
@@ -60,6 +61,9 @@ public class UserController {
 	
     @Autowired
     private AuthenticationManager authenticationManager;
+    
+    @Autowired
+	GameRepository games;
 
 	
 	 Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -171,9 +175,17 @@ public class UserController {
 	 } */
 	
 	@GetMapping("/findAllCategories")
+	List<Category>getCat()
+	{
+		return games.findAll();
+	}
+	/*@GetMapping("/findAllCategories")
 	 Iterable<Category> findAllCategories() {
 	  return categoryService.findAllCategories();
+	 }*/
+	@GetMapping("/findAllGames")
+	 Iterable<GameDetail> findAllGames() {
+	  return gameService.findAllGames();
 	 }
-	
 	
 }
