@@ -18,7 +18,7 @@ public class GameRepository {
 	@Transactional
 	public List<Category> findAll()
 	{
-		return jdbcTemplate.query("select * from localmebase1.category",new GameMapper());
+		return jdbcTemplate.query("select * from category",new GameMapper());
 	}
 
 }
