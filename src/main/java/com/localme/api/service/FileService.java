@@ -2,6 +2,7 @@ package com.localme.api.service;
 
 import java.io.File;
 
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,8 +46,7 @@ public class FileService {
        // Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\SupriyaSubash\\eclipse-workspace\\gameproject\\src\\main\\resources\\file.json"));
        // Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-        String data=URLEncoder.encode(fileName, StandardCharsets.UTF_8);
-        
+      
         return String.format(DOWNLOAD_URL, URLEncoder.encode(fileName, StandardCharsets.UTF_8));
         /*String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
