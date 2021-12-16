@@ -34,6 +34,11 @@ public class UploadDownloadWithFileSystemController {
 	@PostMapping("/profile/pic")
 	   public ResponseEntity<?> upload(@RequestParam("file") MultipartFile multipartFile) {
 	       //logger.info("HIT -/upload | File Name : {}", multipartFile.getOriginalFilename());
+		if(multipartFile.isEmpty())
+		{
+		 ErrorDetails errorDetails = new ErrorDetails(404,"Please upload the file");
+		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+		}
 	       try
 	       {
 	    	   Message messages=  (Message) fileService.upload(multipartFile);
