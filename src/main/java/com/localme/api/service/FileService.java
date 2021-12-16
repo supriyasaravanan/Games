@@ -47,7 +47,7 @@ public class FileService {
        // Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
       
-        return String.format(DOWNLOAD_URL, URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+        return String.format(DOWNLOAD_URL, fileName);
         /*String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
                 .path(data)
@@ -71,7 +71,7 @@ public class FileService {
     	logger.trace("Entering method");
         try {
             String fileName = multipartFile.getOriginalFilename();                        // to get original file name
-            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));  // to generated random string values for file name. 
+            //fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));  // to generated random string values for file name. 
 
             File file = this.convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
              String TEMP_URL = this.uploadFile(file, fileName);                                   // to get uploaded file link
