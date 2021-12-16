@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
+import com.localme.api.exception.ErrorDetails;
 import com.localme.api.service.FileService;
+import com.localme.api.vo.Message;
 
 
 @RestController
@@ -30,11 +31,20 @@ public class UploadDownloadWithFileSystemController {
 	private FileService fileService;
 
    
-   @PostMapping("/profile/pic")
-   public Object upload(@RequestParam("file") MultipartFile multipartFile) {
-       //logger.info("HIT -/upload | File Name : {}", multipartFile.getOriginalFilename());
-       return fileService.upload(multipartFile);
-   }
+	@PostMapping("/profile/pic")
+	   public ResponseEntity<?> upload(@RequestParam("file") MultipartFile multipartFile) {
+	       //logger.info("HIT -/upload | File Name : {}", multipartFile.getOriginalFilename());
+	       try
+	       {
+	    	   Message messages=  (Message) fileService.upload(multipartFile);
+	   		return new ResponseEntity<Message>(messages, HttpStatus.OK);
+	       }
+	       catch (Exception e) {
+				ErrorDetails errorDetails = new ErrorDetails(404,"File name already exists ");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+			}
+				
+	   }
    @PostMapping("/profile/pic/{fileName}")
    public Object download(@PathVariable String fileName) throws IOException {
       // logger.info("HIT -/download | File Name : {}", fileName);

@@ -27,6 +27,7 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.localme.api.contollers.UserController;
+import com.localme.api.exception.BusinessException;
 import com.localme.api.vo.Message;
 
 @Service
@@ -83,7 +84,7 @@ public class FileService {
              // Your customized response
         } catch (Exception e) {
             e.printStackTrace();
-            return ("Unsuccessfully Uploaded!");
+            throw new BusinessException("500","Unsuccessfully Uploaded!");
         }
 
     }
