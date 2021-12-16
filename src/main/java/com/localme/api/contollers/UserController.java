@@ -19,13 +19,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.localme.api.dao.CategoryRepo;
 import com.localme.api.dao.GameRepo;
 import com.localme.api.exception.BusinessException;
 import com.localme.api.exception.ControllerException;
 import com.localme.api.exception.ErrorDetails;
 import com.localme.api.service.CategoryService;
+import com.localme.api.service.FileService;
 import com.localme.api.service.GameService;
 import com.localme.api.utils.JwtUtility;
 import com.localme.api.vo.AuthRequest;
@@ -64,7 +68,7 @@ public class UserController {
     
     @Autowired
 	GameRepository games;
-
+   
 	
 	 Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -187,5 +191,6 @@ public class UserController {
 	 Iterable<GameDetail> findAllGames() {
 	  return gameService.findAllGames();
 	 }
+	 
 	
 }
