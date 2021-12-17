@@ -27,10 +27,10 @@ public class GameImpl implements GameService{
 	 public List<GameDetail> findGamesForCategory(int id) {
 		 try {
 			 GameDetail gameDet=gameRepo.findByid(id);
-			 if(gameDet!=null)
+			 /*if(gameDet!=null)
 				{
 					throw new BusinessException("400","Already Exisit");
-				}
+				}*/
 		 System.out.println("id"+id);
 	   Category category = catRepo.findByid(id);
 	   return category.getGames();
@@ -39,7 +39,6 @@ public class GameImpl implements GameService{
 				throw new BusinessException("603","Something went wrong in Service layer while saving the employee");
 			} 
 	 }
-	 
 	 @Override
 		public GameDetail addGame(GameDetail gamedetail) {
 		 
