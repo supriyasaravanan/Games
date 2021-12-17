@@ -13,4 +13,5 @@ public interface CategoryRepo extends CrudRepository<Category, String>{
 	Optional<Category> findByName(String name);
 	public Category findById(Long category);
 	public Category findById(int category);
+	public Category findByid(int id);
 }

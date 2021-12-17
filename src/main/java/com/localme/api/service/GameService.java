@@ -13,6 +13,6 @@ public interface GameService {
 	public GameDetail addGame(GameDetail gamedetail) throws BusinessException;
 	public Category addCat(Category gamedetail) throws BusinessException;
 	public GameDetail getGame(GameList gamedetails) throws BusinessException;
-    public List<GameDetail> findGamesForCategory(String name) throws BusinessException;
+    public List<GameDetail> findGamesForCategory(int id) throws BusinessException;
     Iterable<GameDetail> findAllGames();
 }

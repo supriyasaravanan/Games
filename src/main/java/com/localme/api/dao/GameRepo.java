@@ -11,7 +11,7 @@ import com.localme.api.vo.GameDetail;
 public interface GameRepo extends  CrudRepository<GameDetail, Integer> {
 	public GameDetail findByname(String name);
 	public GameDetail findByid(String name);
-	
+	public GameDetail findByid(int id);
 	List<GameDetail> findByName(String name);
 	
 }

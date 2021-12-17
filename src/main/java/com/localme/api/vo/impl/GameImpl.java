@@ -24,15 +24,15 @@ public class GameImpl implements GameService{
 
 	
 	 @Override
-	 public List<GameDetail> findGamesForCategory(String name) {
+	 public List<GameDetail> findGamesForCategory(int id) {
 		 try {
-			 GameDetail gameDet=gameRepo.findByname(name);
+			 GameDetail gameDet=gameRepo.findByid(id);
 			 if(gameDet!=null)
 				{
 					throw new BusinessException("400","Already Exisit");
 				}
-		 System.out.println("name"+name);
-	   Category category = catRepo.findByName(name).orElse(null);
+		 System.out.println("id"+id);
+	   Category category = catRepo.findByid(id);
 	   return category.getGames();
 	   }
 		 catch (Exception e) {
@@ -64,13 +64,13 @@ public class GameImpl implements GameService{
 		public GameDetail getGame(GameList gamedetails) {
 
 			try {
-				GameDetail gameDet=gameRepo.findByname(gamedetails.getName());
+				GameDetail gameDet=gameRepo.findByid(gamedetails.getId());
 				
 				if(gameDet==null)
 				{
 					throw new BusinessException("404","Not Present");
 				}
-				GameDetail savedEmployees=gameRepo.findByname(gamedetails.getName());
+				GameDetail savedEmployees=gameRepo.findByid(gamedetails.getId());
 				return savedEmployees;
 				
 			}

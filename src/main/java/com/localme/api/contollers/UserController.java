@@ -110,24 +110,25 @@ public class UserController {
 		
 	
 	
-	@GetMapping("/getGame")
-	public ResponseEntity<?>  getGame(@RequestBody GameList gamedetails) {
-		logger.trace("Entering method get Game");
-		if(gamedetails.getName().isEmpty() || gamedetails.getName().length() == 0 )
-		{
-			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the game name");
-		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
-		}
-		try 
-		{
-			GameDetail gameFind=gameService.getGame(gamedetails);
-			return new ResponseEntity<GameDetail>(gameFind, HttpStatus.OK);
-		
-		}catch (Exception e) {
-			ErrorDetails errorDetails = new ErrorDetails(404,"Not present");
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+	 @GetMapping("/getGame")
+		public ResponseEntity<?>  getGame(@RequestBody GameList gamedetails) {
+			logger.trace("Entering method get Game");
+			if(gamedetails.getId() < 0 )
+			{
+				ErrorDetails errorDetails = new ErrorDetails(404,"Enter the game id");
+			    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+			}
+			try 
+			{
+				GameDetail gameFind=gameService.getGame(gamedetails);
+				return new ResponseEntity<GameDetail>(gameFind, HttpStatus.OK);
+			
+			}catch (Exception e) {
+				ErrorDetails errorDetails = new ErrorDetails(404,"Not present");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+			}	
 		}	
-	}	
+		
 	
 	@PostMapping("/addCat")
 	public ResponseEntity<?> addCat(@RequestBody Category gamedetail){
@@ -152,17 +153,17 @@ public class UserController {
 	}
 	
 
-	@GetMapping("/findGameForCategory/{name}")
-	public ResponseEntity<?> findGamesForCategory(@PathVariable String name) {
+	@GetMapping("/findGameForCategory/{id}")
+	public ResponseEntity<?> findGamesForCategory(@PathVariable int id) {
 		logger.trace("Entering method");
-		if(name.isEmpty() ||name.length() == 0  )
+		/*if(id  <= 0 != id > 0  )
 		{
 			ErrorDetails errorDetails = new ErrorDetails(404,"Enter the valid username");
 		    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
-		}
+		}*/
 		try
 		{
-			  List< GameDetail> gameDet= gameService.findGamesForCategory(name);
+			  List< GameDetail> gameDet= gameService.findGamesForCategory(id);
 			   return new ResponseEntity<List<GameDetail>>(gameDet, HttpStatus.OK);
 		}
 			   catch (Exception e) 
