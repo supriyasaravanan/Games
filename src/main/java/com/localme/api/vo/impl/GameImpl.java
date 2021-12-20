@@ -103,6 +103,23 @@ public class GameImpl implements GameService{
 	 {
 	   return gameRepo.findAll();
 	 }
+	 @Override
+		public GameDetail update(GameDetail gamedetail) {
+		 /*Category gamesDet=null;
+			gamesDet=catService.checkCat(gamedetail.getCategory());
+			GameDetail game=new GameDetail();
+			game.setCategory(gamesDet);*/
+			
+			try {
+				
+				GameDetail savedEmployee = gameRepo.save(gamedetail);
+				return savedEmployee;
+			}
+			catch (Exception e) {
+				throw new BusinessException("603","Something went wrong in Service layer while saving the employee");
+			}
+			
+		}
 		
 }
 

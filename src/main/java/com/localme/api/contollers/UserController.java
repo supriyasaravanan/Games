@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -192,6 +193,43 @@ public class UserController {
 	 Iterable<GameDetail> findAllGames() {
 	  return gameService.findAllGames();
 	 }
+@PutMapping("/Game")
+	
+	public ResponseEntity<?>  updateGame (@RequestBody GameDetail gamedetail)
+	{
+		//GameDetail gameDet=gameRepo.findByname(gamedetail.getName());
+		 if(gamedetail.getName().isEmpty() ||gamedetail.getName().length() == 0)
+			{
+			 ErrorDetails errorDetails = new ErrorDetails(404,"Enter a name");
+			    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+			}
+		 else
+		 { 
+			 GameDetail employee = gameRepo.findByid(gamedetail.getId());
+			if(employee==null)
+			{
+				ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid id");
+			    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);	
+				
+			}
+				       // .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + gamedetail.getId()));
+		 }
+		 try 
+			{
+				GameDetail employeeSaved = gameService.update(gamedetail);
+				return new ResponseEntity<GameDetail>(employeeSaved, HttpStatus.CREATED);
+		    }
+			catch(BusinessException e)
+			{
+				ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid category");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+			}
+			catch (Exception e) 
+			{
+				ErrorDetails errorDetails = new ErrorDetails(404,"Enter a valid value");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+			}
+	}
 	 
 	
 }

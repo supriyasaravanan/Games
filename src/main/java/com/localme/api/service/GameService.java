@@ -15,4 +15,5 @@ public interface GameService {
 	public GameDetail getGame(GameList gamedetails) throws BusinessException;
     public List<GameDetail> findGamesForCategory(int id) throws BusinessException;
     Iterable<GameDetail> findAllGames();
+    public GameDetail update(GameDetail gamedetail);
 }
